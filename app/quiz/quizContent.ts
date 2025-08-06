@@ -38,7 +38,7 @@ export interface QuizAnswer {
 }
 export interface QuizQuestionResponse {
   questionKey: QuizQuestionKey;
-  answers: QuizAnswer[];
+  answer: QuizAnswer;
 }
 export type QuizData = Record<QuizQuestionKey, QuizAnswer[]>;
 export interface QuizState {

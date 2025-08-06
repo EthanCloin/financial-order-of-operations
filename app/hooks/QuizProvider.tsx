@@ -7,6 +7,7 @@ import {
   QuizState,
   QuizAction,
   QuizQuestionResponse,
+  QuizAnswer,
 } from "../quiz/quizContent";
 
 const defaultData: QuizData = Object.fromEntries(
@@ -18,16 +19,23 @@ const defaultData: QuizData = Object.fromEntries(
 
 const initialState: QuizState = { step: 0, responses: defaultData };
 
-// add reducer function something like
-
 function reducer(state: QuizState, action: QuizAction): QuizState {
   switch (action.type) {
     case "setAnswer":
+      // find the question via key
+      // update the answer in array which has given answer key
+      const updatedAnswers = state.responses[action.response.questionKey].map(
+        (a) =>
+          a.answerKey === action.response.answer.answerKey
+            ? action.response.answer
+            : a
+      );
+      console.log(updatedAnswers);
       return {
         ...state,
         responses: {
           ...state.responses,
-          [action.response.questionKey]: action.response.answers,
+          [action.response.questionKey]: updatedAnswers,
         },
       };
     case "next":
@@ -50,4 +58,9 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
       {children}
     </QuizContext.Provider>
   );
+}
+export function useQuiz() {
+  const ctx = useContext(QuizContext);
+  if (!ctx) throw new Error("useQuiz must be used within QuizProvider");
+  return ctx;
 }
