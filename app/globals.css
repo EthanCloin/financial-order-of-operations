@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: var(--color-slate-100);
+  --background: #f6f3f3;
   --foreground: #171717;
   --mg-sky: oklch(0.7798 0.1212 225.64);
   --mg-navy-400: oklch(55.277% 0.12156 244.766);
