@@ -39,7 +39,7 @@ function reducer(state: QuizState, action: QuizAction): QuizState {
         },
       };
     case "next":
-      return { ...state, step: Math.min(state.step + 1, 3) };
+      return { ...state, step: Math.min(state.step + 1, quizQuestions.length - 1) };
     case "previous":
       return { ...state, step: Math.max(state.step - 1, 0) };
     default:

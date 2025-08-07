@@ -49,6 +49,7 @@ export type QuizAction =
   | { type: "setAnswer"; response: QuizQuestionResponse }
   | { type: "next" }
   | { type: "previous" };
+
 export const quizQuestions: QuizQuestion[] = [
   {
     questionKey: "emergencyFund",
@@ -77,7 +78,7 @@ export const quizQuestions: QuizQuestion[] = [
     questionKey: "retirementContributions",
     title: "Retirement Contributions",
     summary:
-      "Beyond immediate expenses, retirement savings provide an additionaly layer of security.",
+      "Beyond a fund for immediate expenses, retirement savings provide an additional layer of security.",
     details: `There are two main types of retirement accounts: Individual and Employer.
     You usually set your Employer contribution as a percentage of your income,
     and contribute to Individual Retirement Accounts independently. 

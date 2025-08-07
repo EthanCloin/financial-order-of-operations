@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import QuizForm from "./QuizForm";
-import { QuizProvider, useQuiz } from "../hooks/QuizProvider";
+import { QuizProvider } from "../hooks/QuizProvider";
 
 export default function Page() {
   return (
