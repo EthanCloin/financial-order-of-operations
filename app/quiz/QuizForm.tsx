@@ -23,7 +23,7 @@ const QuizForm: React.FC = () => {
    * @param answerKey The key of the answer being set.
    */
   function handleChange(
-    e: React.ChangeEvent<HTMLInputElement>,
+    value: number | undefined,
     questionKey: QuizQuestionKey,
     answerKey: QuizAnswerKey
   ) {
@@ -33,7 +33,7 @@ const QuizForm: React.FC = () => {
         questionKey,
         answer: {
           answerKey,
-          answer: Number(e.target.value) || 0,
+          answer: value,
         },
       },
     });
@@ -80,9 +80,12 @@ const QuizForm: React.FC = () => {
                 className="px-4 py-1 bg-white border-slate-300 border-2"
                 type={input.inputType}
                 placeholder={input.placeholder}
-                value={currentAnswer?.answer || ""}
-                onChange={(e) =>
-                  handleChange(e, question.questionKey, input.answerKey)
+                value={currentAnswer?.answer === undefined ? "" : currentAnswer.answer}
+                onChange={(e) => {
+                  const raw = e.target.value;
+                  const value = raw === "" ? undefined : Number(raw);
+                  handleChange(value, question.questionKey, input.answerKey)
+                }
                 }
               />
             </div>

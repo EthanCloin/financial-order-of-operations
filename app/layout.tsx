@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { QuizProvider } from "./hooks/QuizProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,8 +28,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <header className="bg-white h-12">Home</header>
-        {children}
+        <header className="bg-white h-12">Home</header>
+        <QuizProvider>
+          {children}
+        </QuizProvider>
       </body>
     </html>
   );

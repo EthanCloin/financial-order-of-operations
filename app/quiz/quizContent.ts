@@ -9,6 +9,7 @@ export type QuizQuestionKey =
 export type QuizAnswerKey =
   | "emergencyFundBalance"
   | "monthsOfExpenses"
+  | "grossMonthlyIncome"
   | "employerRetirementContribution"
   | "employerMatchPercent"
   | "iraContribution"
@@ -34,7 +35,7 @@ export interface QuizQuestion {
 
 export interface QuizAnswer {
   answerKey: QuizAnswerKey;
-  answer: number;
+  answer: number | undefined;
 }
 export interface QuizQuestionResponse {
   questionKey: QuizQuestionKey;
@@ -50,6 +51,9 @@ export type QuizAction =
   | { type: "next" }
   | { type: "previous" };
 
+// TODO: enforce limitations and formatting.
+// maybe this should be defining a JSX input element
+// instead of strings in the inputs array
 export const quizQuestions: QuizQuestion[] = [
   {
     questionKey: "emergencyFund",
@@ -66,11 +70,18 @@ export const quizQuestions: QuizQuestion[] = [
         inputType: "number",
         placeholder: "Emergency Fund Balance",
       },
+      // {
+      //   answerKey: "monthsOfExpenses",
+      //   label: "How many months of expenses would this amount cover?",
+      //   inputType: "number",
+      //   placeholder: "Months of Expenses",
+      // },
       {
-        answerKey: "monthsOfExpenses",
-        label: "How many months of expenses would this amount cover?",
+        answerKey: "grossMonthlyIncome",
+        label:
+          "How much money do you make on average each month, before taxes and expenses?",
         inputType: "number",
-        placeholder: "Months of Expenses",
+        placeholder: "Gross Income",
       },
     ],
   },
