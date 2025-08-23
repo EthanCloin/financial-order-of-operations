@@ -1,11 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  QuizAnswerKey,
-  QuizQuestionKey,
-  quizQuestions,
-} from "./quizContent";
+import { QuizAnswerKey, QuizQuestionKey, quizQuestions } from "./quizContent";
 import { useQuiz } from "../hooks/QuizProvider";
 import Link from "next/link";
 
@@ -50,13 +46,17 @@ const QuizForm: React.FC = () => {
 
   return (
     <div className="max-w-lg mx-auto my-4 h-full">
-      <form className="space-y-4 mx-auto p-4 flex-col flex text-mg-navy-600">
+      <form className="space-y-4 mx-auto p-4 flex-col flex text-mg-navy-600 min-h-screen">
         <p className="text-2xl font-semibold text-center md:text-4xl">
           {question.title}
         </p>
         <p className="text-xl md:text-2xl">{question.summary}</p>
         <div className="relative">
-          <p className={`${isExpanded ? '' : 'line-clamp-3'} transition-all duration-300`}>
+          <p
+            className={`${
+              isExpanded ? "" : "line-clamp-3"
+            } transition-all duration-300`}
+          >
             {question.details}
           </p>
           {question.details.length > 150 && (
@@ -65,7 +65,7 @@ const QuizForm: React.FC = () => {
               onClick={() => setIsExpanded(!isExpanded)}
               className="text-mg-orange-600 hover:text-mg-orange-400 font-medium mt-2 text-sm"
             >
-              {isExpanded ? 'Show Less' : 'Read More'}
+              {isExpanded ? "Show Less" : "Read More"}
             </button>
           )}
         </div>
@@ -80,13 +80,16 @@ const QuizForm: React.FC = () => {
                 className="px-4 py-1 bg-white border-slate-300 border-2"
                 type={input.inputType}
                 placeholder={input.placeholder}
-                value={currentAnswer?.answer === undefined ? "" : currentAnswer.answer}
+                value={
+                  currentAnswer?.answer === undefined
+                    ? ""
+                    : currentAnswer.answer
+                }
                 onChange={(e) => {
                   const raw = e.target.value;
                   const value = raw === "" ? undefined : Number(raw);
-                  handleChange(value, question.questionKey, input.answerKey)
-                }
-                }
+                  handleChange(value, question.questionKey, input.answerKey);
+                }}
               />
             </div>
           );
@@ -113,7 +116,8 @@ const QuizForm: React.FC = () => {
               onClick={(e) => handleContinue(e)}
             >
               Continue
-            </button>)}
+            </button>
+          )}
         </div>
       </form>
     </div>

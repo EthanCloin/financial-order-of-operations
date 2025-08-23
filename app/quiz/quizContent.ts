@@ -158,14 +158,13 @@ export const quizQuestions: QuizQuestion[] = [
     inputs: [
       {
         answerKey: "lowInterestDebt",
-        label: "How much <em>low</em>-interest (<=4%) debt do you have?",
+        label: "How much low-interest (<=4%) debt do you have?",
         inputType: "number",
         placeholder: "Low Interest Debt",
       },
       {
         answerKey: "highInterestDebt",
-        label:
-          "How much <strong>high</strong>-interest (<4%) debt do you have?",
+        label: "How much high-interest (<4%) debt do you have?",
         inputType: "number",
         placeholder: "High Interest Debt",
       },

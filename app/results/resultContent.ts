@@ -13,11 +13,13 @@ export type ResultKey =
 
 export interface Result {
   resultKey: ResultKey;
+  label: string;
   scoreFxn(answers: QuizAnswer[]): number; // return a num bw 0-100 for gauge
 }
 export const resultContent: Result[] = [
   {
     resultKey: "deductiblesCovered",
+    label: "Deductibles Covered",
     scoreFxn: (a) => {
       // for now assuming highest deductible is $1500 maybe that should be another question
       const eFundBalance = a.find(
@@ -32,6 +34,7 @@ export const resultContent: Result[] = [
   },
   {
     resultKey: "employerMatch",
+    label: "Full Employer Match",
     scoreFxn: (a) => {
       const employerOffering = a.find(
         (x) => x.answerKey === "employerMatchPercent"
@@ -47,6 +50,7 @@ export const resultContent: Result[] = [
   },
   {
     resultKey: "highInterestDebt",
+    label: "Pay off High-Interest Debt",
     scoreFxn: (a) => {
       const debt = a.find((x) => x.answerKey == "highInterestDebt")?.answer;
       const monthlyIncome = a.find(
@@ -63,6 +67,7 @@ export const resultContent: Result[] = [
   },
   {
     resultKey: "emergencyReserves",
+    label: "Full Emergency Fund",
     scoreFxn: (a) => {
       const monthlyIncome =
         a.find((x) => x.answerKey == "grossMonthlyIncome")?.answer ?? 0;
@@ -82,6 +87,7 @@ export const resultContent: Result[] = [
   },
   {
     resultKey: "rothAndHSA",
+    label: "Max Tax-Deductible Investments",
     scoreFxn: (a) => {
       const CONTRIBUTION_LIMIT = 7_000;
       const contributionGoal = CONTRIBUTION_LIMIT / 12;
@@ -101,6 +107,7 @@ export const resultContent: Result[] = [
   },
   {
     resultKey: "maxOutRetirement",
+    label: "Max Employer Retirement",
     scoreFxn: (a) => {
       const CONTRIBUTION_LIMIT = 23_000;
       const contributionGoal = CONTRIBUTION_LIMIT / 12;
@@ -130,6 +137,7 @@ export const resultContent: Result[] = [
   },
   {
     resultKey: "hyperaccumulation",
+    label: "Hyperaccumulation (>25% invested)",
     scoreFxn: (a) => {
       // get all investments into dollars/month format
       const grossMonthlyIncome = a.find(
@@ -160,6 +168,7 @@ export const resultContent: Result[] = [
   },
   {
     resultKey: "prepaidFutureExpenses",
+    label: "Prepay Future Expenses",
     scoreFxn: (a) => {
       const prepaidFutureExpenses = a.find(
         (x) => x.answerKey == "futureExpenseSavings"
@@ -172,6 +181,7 @@ export const resultContent: Result[] = [
   },
   {
     resultKey: "lowInterestDebt",
+    label: "Pay off Low-Interest Debt",
     scoreFxn: (a) => {
       const lowInterestDebt = a.find(
         (x) => x.answerKey == "lowInterestDebt"
@@ -179,8 +189,8 @@ export const resultContent: Result[] = [
       const monthlyIncome = a.find(
         (x) => x.answerKey == "grossMonthlyIncome"
       )?.answer;
-      if (monthlyIncome === undefined || monthlyIncome == 0) return 0;
       if (lowInterestDebt == undefined || lowInterestDebt === 0) return 100;
+      if (monthlyIncome === undefined || monthlyIncome == 0) return 0;
 
       // my heuristic, not moneyguy sourced: if it takes 3 years+ to payoff debt, u get no points
       const monthlyDebtShovel = 0.2 * monthlyIncome;
@@ -189,3 +199,15 @@ export const resultContent: Result[] = [
     },
   },
 ];
+export const overallScoreMsg = (allAnswers: QuizAnswer[]) => {
+  let score = 0;
+  resultContent.forEach((rc) => {
+    const completedGoal = rc.scoreFxn(allAnswers) === 100;
+    if (completedGoal) score++;
+  });
+  if (score < 3)
+    return "Everybody starts somewhere, and today is the next best day to start prioritizing these goals! Right now, one bad day could cripple your financial future. Start to build up that buffer and protect yourself.";
+  if (score < 6)
+    return "You should be proud! You're mustering an army of dollar bills who will soon be working harder than you do.";
+  return "Your future is now. You've conquered the most trying times in your financial journey, and now you're in control. It's time to be daring and generous with your success!";
+};
