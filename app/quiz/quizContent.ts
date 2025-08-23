@@ -13,7 +13,7 @@ export type QuizAnswerKey =
   | "employerRetirementContribution"
   | "employerMatchPercent"
   | "iraContribution"
-  | "brokerageBalance"
+  | "brokerageContribution"
   | "futureExpenseSavings"
   | "lowInterestDebt"
   | "highInterestDebt";
@@ -99,7 +99,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         answerKey: "employerRetirementContribution",
         label:
-          "What percent of your income goes to your Employer retirement account?",
+          "What percent of your income goes to your Employer retirement account each paycheck?",
         inputType: "number",
         placeholder: "401k / 403b / 457b Contribution",
       },
@@ -112,7 +112,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         answerKey: "iraContribution",
         label:
-          "How much money do you contribute to your Individual Retirement Account?",
+          "How much money do you contribute to your Individual Retirement Account each month?",
         inputType: "number",
         placeholder: "IRA Contribution",
       },
@@ -122,7 +122,7 @@ export const quizQuestions: QuizQuestion[] = [
     questionKey: "savingForYourFuture",
     title: "Saving for Your Future",
     summary:
-      "Saving in retirement accounts is excellent, but we can do more than just thatn.",
+      "Saving in retirement accounts is excellent, but we can do more than just that.",
     details: `The great benefit of retirement accounts is their tax advantages; you don't have
     to pay capital gains tax on money you earn in there. But for a full financial future, you
     should ultimately squirrel away some money that you can more easily access, especially if you 
@@ -130,9 +130,9 @@ export const quizQuestions: QuizQuestion[] = [
     a down payment on a house.`,
     inputs: [
       {
-        answerKey: "brokerageBalance",
+        answerKey: "brokerageContribution",
         label:
-          "How much money do you have invested in a non-retirement investment account?",
+          "How much money do you invest monthly into a non-retirement investment account?",
         inputType: "number",
         placeholder: "Non-Retirement Brokerage Balance",
       },
