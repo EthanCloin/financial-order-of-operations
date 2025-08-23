@@ -17,29 +17,40 @@ const defaultData: QuizData = Object.fromEntries(
   ])
 ) as QuizData;
 
-const initialState: QuizState = { step: 0, responses: defaultData };
+const initialState: QuizState = {
+  step: 0,
+  responses: defaultData,
+  allAnswers: [],
+};
 
 function reducer(state: QuizState, action: QuizAction): QuizState {
   switch (action.type) {
     case "setAnswer":
       // find the question via key
       // update the answer in array which has given answer key
-      const updatedAnswers = state.responses[action.response.questionKey].map(
+      const updatedResponse = state.responses[action.response.questionKey].map(
         (a) =>
           a.answerKey === action.response.answer.answerKey
             ? action.response.answer
             : a
       );
-      console.log(updatedAnswers);
+      const updatedResponses = {
+        ...state.responses,
+        [action.response.questionKey]: updatedResponse,
+      };
+
+      const updatedAllAnswers = Object.values(updatedResponses).flat();
+      console.log(updatedAllAnswers);
       return {
         ...state,
-        responses: {
-          ...state.responses,
-          [action.response.questionKey]: updatedAnswers,
-        },
+        responses: updatedResponses,
+        allAnswers: updatedAllAnswers,
       };
     case "next":
-      return { ...state, step: Math.min(state.step + 1, quizQuestions.length - 1) };
+      return {
+        ...state,
+        step: Math.min(state.step + 1, quizQuestions.length - 1),
+      };
     case "previous":
       return { ...state, step: Math.max(state.step - 1, 0) };
     default:

@@ -45,6 +45,7 @@ export type QuizData = Record<QuizQuestionKey, QuizAnswer[]>;
 export interface QuizState {
   step: number;
   responses: QuizData;
+  allAnswers: QuizAnswer[];
 }
 export type QuizAction =
   | { type: "setAnswer"; response: QuizQuestionResponse }
