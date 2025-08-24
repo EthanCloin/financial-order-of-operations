@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -34,7 +33,7 @@ export default function Home() {
         </div>
         <div className="flex justify-center">
           <a href="https://moneyguy.com/resources/">
-            <Image
+            <img
               src="/FOO-9-step-summary.png"
               alt="summary of the 9 steps"
               width="985"
