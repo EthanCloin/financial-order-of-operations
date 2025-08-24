@@ -32,7 +32,7 @@ jobs:
         REMOTE_HOST: ${{ secrets.SSH_HOST }}
         REMOTE_USER: ${{ secrets.SSH_USER }}
         SOURCE: "out/"
-        TARGET: /var/www/html/ethancloin.xyz
+        TARGET: /var/www/html/foo.ethancloin.xyz
         ARGS: "-avzr --delete"
 
     # 4️⃣ (Optional) run post‑deploy commands (cache‑clear, etc.)
