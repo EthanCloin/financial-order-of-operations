@@ -113,9 +113,7 @@ export default function ResultGauge({
           <span className="text-gray-400 text-xl align-top">/100</span>
         </div>
         {label ? (
-          <div className="text-sm text-gray-500 dark:text-gray-400">
-            {label}
-          </div>
+          <div className="text-lg font-semibold text-mg-navy-600 ">{label}</div>
         ) : null}
       </div>
     </div>

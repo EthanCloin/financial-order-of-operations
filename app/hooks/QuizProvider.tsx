@@ -40,7 +40,6 @@ function reducer(state: QuizState, action: QuizAction): QuizState {
       };
 
       const updatedAllAnswers = Object.values(updatedResponses).flat();
-      console.log(updatedAllAnswers);
       return {
         ...state,
         responses: updatedResponses,

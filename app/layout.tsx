@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { QuizProvider } from "./hooks/QuizProvider";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,10 +29,42 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="bg-white h-12">Home</header>
-        <QuizProvider>
-          {children}
-        </QuizProvider>
+        <header className="bg-white h-12 flex items-center">
+          {" "}
+          <Link
+            href="/"
+            className="text-xl p-2 text-mg-navy-600 hover:text-mg-navy-400"
+          >
+            Home
+          </Link>
+          <Link
+            href="/quiz"
+            className="text-xl p-2 text-mg-navy-600 hover:text-mg-navy-400"
+          >
+            Quiz
+          </Link>
+          <Link
+            href="/results"
+            className="text-xl p-2 text-mg-navy-600 hover:text-mg-navy-400"
+          >
+            Results
+          </Link>
+        </header>
+        <QuizProvider>{children}</QuizProvider>
+        <footer className="text-sm text-mg-navy-600 bg-white p-2 border-slate-200 border-t-2 md:text-lg">
+          The Money Guys are financial advisors who produce educational content
+          simplifying your journey towards financial independence. <br />
+          This quiz is not affiliated with the Money Guy company, but uses their{" "}
+          <a
+            href="https://moneyguy.com/guide/foo/"
+            className="text-mg-orange-600 cursor-pointer hover:border-b-2 transition-transform"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            publicly available resource
+          </a>{" "}
+          as a guide.
+        </footer>
       </body>
     </html>
   );

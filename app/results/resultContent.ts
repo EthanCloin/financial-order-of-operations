@@ -157,13 +157,14 @@ export const resultContent: Result[] = [
 
       const allMonthlyInvestments =
         retirementContribution + brokerageContribution + iraContribution;
-      if (allMonthlyInvestments >= grossMonthlyIncome) console.log("ur lyin");
-
       const percentInvested =
         (allMonthlyInvestments / grossMonthlyIncome) * 100;
       const INVESTING_GOAL_PCT = 25;
-
-      return Math.max((percentInvested / INVESTING_GOAL_PCT) * 100, 0);
+      const investingGoalRatio = Math.min(
+        (percentInvested / INVESTING_GOAL_PCT) * 100,
+        100
+      );
+      return Math.max(investingGoalRatio, 0);
     },
   },
   {
@@ -199,12 +200,19 @@ export const resultContent: Result[] = [
     },
   },
 ];
-export const overallScoreMsg = (allAnswers: QuizAnswer[]) => {
+export const overallScore = (allAnswers: QuizAnswer[]) => {
   let score = 0;
   resultContent.forEach((rc) => {
-    const completedGoal = rc.scoreFxn(allAnswers) === 100;
+    const val = rc.scoreFxn(allAnswers);
+    const completedGoal = val === 100;
+    console.log(`${rc.resultKey}: ${val}`);
     if (completedGoal) score++;
   });
+  return score;
+};
+
+export const overallScoreMsg = (allAnswers: QuizAnswer[]) => {
+  const score = overallScore(allAnswers);
   if (score < 3)
     return "Everybody starts somewhere, and today is the next best day to start prioritizing these goals! Right now, one bad day could cripple your financial future. Start to build up that buffer and protect yourself.";
   if (score < 6)
